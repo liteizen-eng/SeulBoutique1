@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boutique Seul | Moda Coreana, Japonesa, Vintage, Y2K y Gótica</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ===================================================================
+   BOUTIQUE SEUL — HOJA DE ESTILOS
+   Paleta: rosa pastel / rosa bebé / rosa empolvado / rosa nude / crema
+   =================================================================== */
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  /* ---- PALETA COQUETTE PASTEL (editar aquí para cambiar el tema de color global) ---- */
+  --crema:#FCF8F5;          /* fondo principal */
+  --rosa-bebe:#F7E4E8;      /* rosa bebé suave */
+  --rosa-pastel:#F0CDD6;    /* rosa pastel */
+  --rosa-empolvado:#D9A8B3; /* rosa empolvado, acentos */
+  --rosa-nude:#C98C99;      /* rosa nude, botones/acentos fuertes */
+  --rosa-oscuro:#A8677A;    /* rosa oscuro para hover/texto destacado */
+  --carbon:#3A2E30;         /* texto principal oscuro (no negro puro) */
+  --gris-medio:#7C6A6C;     /* texto secundario */
+  --gris-claro:#B7A4A6;     /* texto terciario / placeholders */
+  --blanco:#FFFFFF;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Jost',sans-serif;background:var(--crema);color:var(--carbon);overflow-x:hidden}
+
+/* ── BARRA DE ANUNCIOS ── */
+.anuncio{background:var(--rosa-oscuro);color:var(--blanco);text-align:center;padding:9px 16px;font-size:11.5px;letter-spacing:1.6px;font-weight:300}
+.anuncio span{color:var(--rosa-bebe);font-weight:500}
+
+/* ── NAVEGACIÓN ── */
+nav{background:var(--blanco);border-bottom:1px solid var(--rosa-pastel);position:sticky;top:0;z-index:200}
+.nav-top{display:flex;align-items:center;justify-content:space-between;padding:14px 48px;max-width:1440px;margin:0 auto}
+.logo{font-family:'Cormorant Garamond',serif;font-size:27px;font-weight:400;letter-spacing:3px;color:var(--carbon);text-decoration:none;font-style:italic;user-select:none}
+.logo-rosa{color:var(--rosa-nude)}
+.nav-utils{display:flex;align-items:center;gap:6px}
+.nav-util-icon{width:36px;height:36px;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;color:var(--carbon)}
+.nav-util-icon svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.4}
+.cart-badge{position:absolute;top:2px;right:2px;background:var(--rosa-nude);color:#fff;border-radius:50%;width:14px;height:14px;font-size:8px;display:flex;align-items:center;justify-content:center;font-weight:500}
+.nav-menu{background:var(--rosa-bebe);border-top:1px solid var(--rosa-pastel)}
+.nav-menu ul{display:flex;list-style:none;justify-content:center;gap:0;padding:0 48px;max-width:1440px;margin:0 auto}
+.nav-menu li{position:relative}
+.nav-menu a{display:block;padding:11px 18px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--carbon);text-decoration:none;font-weight:400;border-bottom:2px solid transparent;transition:all .18s;cursor:pointer}
+.nav-menu a:hover,.nav-menu a.active{color:var(--rosa-oscuro);border-bottom-color:var(--rosa-oscuro)}
+.nav-menu .nuevo-link a{color:var(--rosa-oscuro)}
+.dropdown{display:none;position:absolute;top:100%;left:0;background:var(--blanco);border:1px solid var(--rosa-pastel);border-top:2px solid var(--rosa-oscuro);min-width:200px;z-index:300;padding:16px 0;box-shadow:0 8px 24px rgba(168,103,122,.12)}
+.nav-menu li:hover .dropdown{display:block}
+.dropdown a{padding:8px 20px;font-size:12px;letter-spacing:1px;border-bottom:none;color:var(--gris-medio);cursor:pointer}
+.dropdown a:hover{color:var(--rosa-oscuro);padding-left:24px}
+.dropdown .dd-title{padding:8px 20px 4px;font-size:9px;letter-spacing:2px;color:var(--gris-claro);text-transform:uppercase;font-weight:500;border-top:1px solid var(--rosa-pastel);margin-top:4px}
+.dropdown .dd-title:first-child{border-top:none;margin-top:0}
+
+/* ── BUSCADOR MODAL ── */
+.search-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;align-items:center;justify-content:center}
+.search-modal.active{display:flex}
+.search-modal-content{background:#fff;border-radius:12px;padding:36px;max-width:600px;width:90%;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(168,103,122,.25)}
+.search-modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.search-modal-header h2{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--carbon)}
+.search-modal-close{background:none;border:none;font-size:24px;color:var(--gris-medio);cursor:pointer}
+.search-input-wrap{margin-bottom:24px}
+.search-input{width:100%;padding:12px 16px;border:1px solid var(--rosa-pastel);border-radius:6px;font-family:'Jost',sans-serif;font-size:14px;color:var(--carbon)}
+.search-input:focus{outline:none;border-color:var(--rosa-oscuro);box-shadow:0 0 0 3px rgba(168,103,122,.1)}
+.search-results{max-height:500px;overflow-y:auto}
+.search-result-item{padding:16px;border-bottom:1px solid var(--rosa-pastel);cursor:pointer;transition:all .2s}
+.search-result-item:hover{background:var(--rosa-bebe)}
+.search-result-name{font-weight:500;color:var(--carbon);margin-bottom:4px}
+.search-result-desc{font-size:12px;color:var(--gris-medio);margin-bottom:6px}
+.search-result-price{font-size:13px;color:var(--rosa-oscuro);font-weight:500}
+.search-no-results{text-align:center;padding:32px 16px;color:var(--gris-medio)}
+
+/* ── CARRITO DRAWER ── */
+.cart-drawer{position:fixed;right:-400px;top:0;width:400px;height:100vh;background:#fff;box-shadow:-2px 0 20px rgba(0,0,0,.15);z-index:500;transition:right .35s ease;display:flex;flex-direction:column;overflow:hidden}
+.cart-drawer.active{right:0}
+.cart-drawer-header{padding:24px;border-bottom:1px solid var(--rosa-pastel);display:flex;justify-content:space-between;align-items:center}
+.cart-drawer-header h2{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--carbon)}
+.cart-drawer-close{background:none;border:none;font-size:24px;color:var(--gris-medio);cursor:pointer}
+.cart-drawer-body{flex:1;padding:24px;overflow-y:auto}
+.cart-item{display:flex;gap:16px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--rosa-pastel)}
+.cart-item-info{flex:1}
+.cart-item-name{font-weight:500;color:var(--carbon);margin-bottom:4px}
+.cart-item-price{font-size:13px;color:var(--rosa-oscuro);margin-bottom:8px}
+.cart-item-qty{display:flex;align-items:center;gap:8px;font-size:13px}
+.cart-item-qty button{background:var(--rosa-bebe);border:none;width:24px;height:24px;cursor:pointer;border-radius:3px;color:var(--carbon);font-weight:500}
+.cart-item-qty button:hover{background:var(--rosa-pastel)}
+.cart-item-remove{color:var(--gris-claro);font-size:13px;cursor:pointer;text-decoration:underline;transition:color .2s}
+.cart-item-remove:hover{color:var(--rosa-oscuro)}
+.cart-empty{text-align:center;color:var(--gris-medio);padding:48px 16px}
+.cart-drawer-footer{padding:24px;border-top:1px solid var(--rosa-pastel);background:var(--rosa-bebe)}
+.cart-subtotal{display:flex;justify-content:space-between;margin-bottom:16px;font-size:14px;color:var(--carbon)}
+.cart-subtotal-price{font-weight:500;color:var(--rosa-oscuro)}
+.cart-checkout{width:100%;padding:14px;background:var(--rosa-oscuro);color:#fff;border:none;border-radius:6px;cursor:pointer;font-family:'Jost',sans-serif;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;transition:background .2s}
+.cart-checkout:hover{background:#8E5366}
+
+/* ── HERO ── */
+.hero{position:relative;overflow:hidden;height:600px;background:var(--rosa-empolvado);cursor:pointer}
+.hero-slide{position:absolute;inset:0;opacity:0;transition:opacity .9s ease;display:flex;align-items:center}
+.hero-slide.active{opacity:1}
+.hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 8s ease}
+.hero-slide.active .hero-bg{transform:scale(1.04)}
+/* Fondos en tonos pasteles rosados (reemplazar por imágenes reales si se desea) */
+.hero-bg-1{background:linear-gradient(140deg,#F7E4E8 0%,#F0CDD6 35%,#E3AFC0 65%,#D9A8B3 100%)}
+.hero-bg-2{background:linear-gradient(140deg,#FCF8F5 0%,#F7E4E8 35%,#F0CDD6 65%,#C98C99 100%)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(100deg,rgba(168,103,122,.30) 0%,rgba(168,103,122,.08) 50%,transparent 80%)}
+.hero-content{position:relative;z-index:2;padding:0 88px;max-width:620px}
+.hero-eyebrow{font-size:10px;letter-spacing:3.5px;text-transform:uppercase;color:var(--rosa-oscuro);margin-bottom:14px;font-weight:500}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:64px;line-height:1.05;color:var(--carbon);font-weight:300;margin-bottom:18px;letter-spacing:-1px}
+.hero-title em{font-style:italic;color:var(--rosa-oscuro);display:block}
+.hero-body{font-size:14px;line-height:1.85;color:var(--gris-medio);margin-bottom:32px;font-weight:300;letter-spacing:.4px;max-width:380px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.btn-outline{display:inline-block;background:transparent;border:1px solid var(--rosa-oscuro);color:var(--rosa-oscuro);padding:13px 34px;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;text-decoration:none;transition:all .25s;font-family:'Jost',sans-serif;cursor:pointer}
+.btn-outline:hover{background:var(--rosa-oscuro);color:#fff}
+.btn-filled{display:inline-block;background:var(--rosa-oscuro);border:1px solid var(--rosa-oscuro);color:#fff;padding:13px 34px;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;text-decoration:none;transition:all .25s;font-family:'Jost',sans-serif;cursor:pointer}
+.btn-filled:hover{background:#8E5366;border-color:#8E5366}
+.hero-dots{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:10}
+.dot{width:6px;height:6px;border-radius:3px;background:rgba(168,103,122,.35);border:none;cursor:pointer;transition:all .25s;padding:0}
+.dot.active{background:var(--rosa-oscuro);width:22px}
+
+/* ── SECCIONES GENERALES ── */
+.sec{padding:64px 48px;max-width:1440px;margin:0 auto}
+.sec-header{text-align:center;margin-bottom:44px}
+.eyebrow{font-size:9.5px;letter-spacing:3.5px;text-transform:uppercase;color:var(--gris-claro);margin-bottom:10px}
+.deco-rule{display:flex;align-items:center;gap:14px;justify-content:center;margin-bottom:14px}
+.deco-rule::before,.deco-rule::after{content:'';flex:1;height:.5px;background:linear-gradient(to right,transparent,var(--gris-claro))}
+.deco-rule::after{background:linear-gradient(to left,transparent,var(--gris-claro))}
+.deco-rule span{font-size:14px;color:var(--rosa-nude)}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:400;color:var(--carbon);line-height:1.15}
+.sec-title em{font-style:italic;color:var(--rosa-oscuro)}
+.sec-sub{font-size:13px;color:var(--gris-medio);margin-top:8px;letter-spacing:.4px}
+.ver-todo{display:inline-block;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gris-medio);text-decoration:none;border-bottom:1px solid var(--gris-claro);padding-bottom:3px;margin-top:8px;transition:all .2s;cursor:pointer}
+.ver-todo:hover{color:var(--rosa-oscuro);border-color:var(--rosa-oscuro)}
+.sec-cta-wrap{text-align:center;margin-top:40px}
+
+/* ── FILTRO DE COLECCIONES ── */
+.colecciones-filter{display:flex;justify-content:center;gap:12px;margin-bottom:36px;flex-wrap:wrap;padding:0 16px}
+.filter-btn{padding:8px 20px;background:transparent;border:1px solid var(--rosa-empolvado);color:var(--carbon);font-family:'Jost',sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:20px;transition:all .25s}
+.filter-btn:hover,.filter-btn.active{background:var(--rosa-oscuro);color:#fff;border-color:var(--rosa-oscuro)}
+
+/* ── GRILLA DE PRODUCTOS ── */
+.prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+.prod-card{cursor:pointer}
+.prod-card.hidden{display:none}
+.prod-img-wrap{position:relative;overflow:hidden;aspect-ratio:1/1;margin-bottom:16px;background:var(--rosa-bebe);border-radius:6px}
+.prod-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .55s ease;display:block}
+.prod-card:hover .prod-img-wrap img{transform:scale(1.05)}
+/* Placeholder de imagen: usado si "imagen" está vacío. Sustituir por <img src="..."> real */
+.prod-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;letter-spacing:.5px;color:var(--rosa-oscuro);background:linear-gradient(135deg,var(--rosa-bebe),var(--rosa-pastel));transition:transform .55s ease}
+.prod-card:hover .prod-placeholder{transform:scale(1.05)}
+.prod-badge{position:absolute;top:12px;left:12px;font-size:8.5px;letter-spacing:1.8px;text-transform:uppercase;padding:4px 9px;font-family:'Jost',sans-serif;z-index:1;border-radius:3px}
+.badge-nuevo{background:var(--rosa-oscuro);color:#fff}
+.badge-oferta{background:var(--rosa-nude);color:#fff}
+.prod-quick{position:absolute;bottom:0;left:0;right:0;background:rgba(168,103,122,.88);color:#fff;text-align:center;padding:11px;font-size:9.5px;letter-spacing:2.2px;text-transform:uppercase;transform:translateY(100%);transition:transform .28s ease;cursor:pointer;font-family:'Jost',sans-serif;border:none;width:100%}
+.prod-card:hover .prod-quick{transform:translateY(0)}
+.prod-name{font-size:13px;color:var(--carbon);line-height:1.55;margin-bottom:5px;letter-spacing:.2px;font-weight:500}
+.prod-desc{font-size:11.5px;color:var(--gris-medio);line-height:1.5;margin-bottom:7px}
+.prod-prices{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.price-ahora{font-size:14px;color:var(--rosa-oscuro);font-weight:500}
+.price-antes{font-size:12px;color:var(--gris-claro);text-decoration:line-through}
+
+/* ── SOBRE NOSOTRAS ── */
+.sobre-sec{background:var(--rosa-bebe);padding:72px 48px}
+.sobre-inner{max-width:760px;margin:0 auto;text-align:center}
+.sobre-inner .sec-title{font-size:36px;margin-bottom:22px}
+.sobre-inner p{font-size:14.5px;line-height:1.95;color:var(--gris-medio);font-weight:300}
+
+/* ── SERVICIO AL CLIENTE ── */
+.servicio-sec{background:var(--crema);padding:64px 48px}
+.servicio-inner{max-width:1000px;margin:0 auto}
+.servicio-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:36px}
+.servicio-card{background:var(--blanco);border:1px solid var(--rosa-pastel);border-radius:8px;padding:28px 20px;text-align:center;text-decoration:none;color:var(--carbon);transition:all .25s}
+.servicio-card:hover{border-color:var(--rosa-oscuro);transform:translateY(-3px);box-shadow:0 10px 24px rgba(168,103,122,.12)}
+.servicio-ico{font-size:26px;margin-bottom:12px}
+.servicio-card h4{font-size:12.5px;letter-spacing:.5px;font-weight:500;margin-bottom:6px}
+.servicio-card p{font-size:11px;color:var(--gris-medio);line-height:1.5}
+
+/* ── REDES SOCIALES ── */
+.redes-sec{background:linear-gradient(135deg,var(--rosa-pastel),var(--rosa-bebe));padding:56px 48px;text-align:center}
+.redes-inner{max-width:600px;margin:0 auto}
+.redes-inner .sec-title{font-size:30px;margin-bottom:10px}
+.redes-inner p{font-size:13px;color:var(--gris-medio);margin-bottom:28px}
+.redes-iconos{display:flex;justify-content:center;gap:18px;flex-wrap:wrap}
+.red-link{display:flex;align-items:center;gap:8px;background:var(--blanco);border:1px solid var(--rosa-empolvado);color:var(--carbon);text-decoration:none;padding:12px 22px;border-radius:30px;font-size:12px;letter-spacing:.5px;font-weight:500;transition:all .22s}
+.red-link:hover{background:var(--rosa-oscuro);color:#fff;border-color:var(--rosa-oscuro);transform:translateY(-2px)}
+.red-link svg{width:16px;height:16px}
+
+/* ── FOOTER ── */
+footer{background:var(--carbon);color:rgba(255,255,255,.65);padding:48px 48px 22px}
+.footer-inner{max-width:1100px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px;margin-bottom:36px}
+.footer-brand .logo{font-size:22px;color:#fff}
+.footer-brand .logo-rosa{color:var(--rosa-pastel)}
+.footer-brand p{font-size:12px;line-height:1.85;color:rgba(255,255,255,.45);margin-top:14px;max-width:280px}
+.footer-col h4{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.85);margin-bottom:16px;font-weight:500}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:9px}
+.footer-col a{font-size:12px;color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s;letter-spacing:.2px;cursor:pointer}
+.footer-col a:hover{color:var(--rosa-pastel)}
+.footer-bottom{border-top:.5px solid rgba(255,255,255,.12);padding-top:18px;text-align:center}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.5px}
+
+/* ── BOTÓN SUBIR ── */
+.scroll-top{position:fixed;bottom:32px;right:32px;width:42px;height:42px;background:var(--rosa-oscuro);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;z-index:999;font-size:18px;border-radius:50%}
+.scroll-top.visible{opacity:1}
+.scroll-top:hover{background:#8E5366}
+
+/* ── RESPONSIVE ── */
+@media (max-width:1024px){
+  .prod-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr}
+  .servicio-grid{grid-template-columns:repeat(2,1fr)}
+  .cart-drawer{width:100%;right:-100%}
+}
+@media (max-width:640px){
+  .hero{height:560px}
+  .hero-content{padding:0 28px;max-width:100%}
+  .hero-title{font-size:42px}
+  .nav-top{padding:12px 20px}
+  .nav-menu ul{padding:0 12px;overflow-x:auto}
+  .sec{padding:48px 20px}
+  .prod-grid{grid-template-columns:1fr 1fr;gap:14px}
+  .servicio-grid{grid-template-columns:1fr}
+  .search-modal-content{padding:24px}
+}
+</style>
+</head>
+<body>
+
+<!-- BOTÓN VOLVER ARRIBA -->
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- =======================================================================
+     BARRA DE ANUNCIOS
+     EDITAR AQUÍ: cambiar el texto del anuncio principal
+======================================================================= -->
+<div class="anuncio">
+  ✦ &nbsp; <span>La Paz, Bolivia</span> &nbsp; · &nbsp; Nuevos ingresos cada mes ✦
+</div>
+
+<!-- =======================================================================
+     NAVEGACIÓN Y UTILIDADES
+     - BUSCADOR: funciona cuando haces clic en la lupa
+     - CARRITO: funciona cuando haces clic en el carrito (eliminar icono usuario)
+======================================================================= -->
+<nav>
+  <div class="nav-top">
+    <div style="display:flex;align-items:center;gap:4px">
+      <a href="#servicio" style="font-size:10.5px;letter-spacing:1.4px;color:var(--gris-medio);text-decoration:none;padding:6px 8px">SOPORTE</a>
+    </div>
+
+    <a class="logo" href="#"><span class="logo-rosa">Boutique</span> Seul</a>
+
+    <div class="nav-utils">
+      <!-- BUSCADOR: CLICK en la lupa abre el modal de búsqueda -->
+      <div class="nav-util-icon" id="searchIcon" title="Buscar" style="cursor:pointer">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+      </div>
+      <!-- NOTA: Icono de usuario ELIMINADO completamente según solicitud -->
+      <!-- CARRITO: CLICK abre el drawer lateral con carrito -->
+      <div class="nav-util-icon" id="cartIcon" title="Carrito" style="cursor:pointer">
+        <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="cart-badge" id="cartCount">0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MENÚ DE NAVEGACIÓN -->
+  <div class="nav-menu">
+    <ul>
+      <li class="nuevo-link"><a href="#nuevo" class="active" onclick="filtrarPorSeccion('nuevo')">Nuevo ✦</a></li>
+      <li>
+        <a href="#colecciones">Colecciones</a>
+        <div class="dropdown">
+          <div class="dd-title">Estilos</div>
+          <a onclick="filtrarPorColeccion('coreano')">Coreano</a>
+          <a onclick="filtrarPorColeccion('japones')">Japonés</a>
+          <a onclick="filtrarPorColeccion('vintage')">Vintage</a>
+          <a onclick="filtrarPorColeccion('y2k')">Y2K</a>
+          <a onclick="filtrarPorColeccion('gotico')">Gótico</a>
+        </div>
+      </li>
+      <li><a href="#bestsellers" onclick="filtrarPorSeccion('bestsellers')">Más Vendidos</a></li>
+      <li>
+        <a href="#tienda" onclick="verTodo()">Ver Todo</a>
+        <div class="dropdown">
+          <div class="dd-title">Categorías</div>
+          <a onclick="filtrarPorCategoria('ropa')">Ropa</a>
+          <a onclick="filtrarPorCategoria('mochilas')">Mochilas y Carteras</a>
+          <a onclick="filtrarPorCategoria('accesorios')">Accesorios</a>
+          <a onclick="filtrarPorCategoria('maquillaje')">Maquillaje</a>
+          <a onclick="filtrarPorCategoria('skincare')">Skincare</a>
+        </div>
+      </li>
+      <li><a href="#sobre">Sobre Nosotras</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- =======================================================================
+     MODAL DE BÚSQUEDA - BUSCADOR FUNCIONAL
+======================================================================= -->
+<div class="search-modal" id="searchModal">
+  <div class="search-modal-content">
+    <div class="search-modal-header">
+      <h2>Buscar Productos</h2>
+      <button class="search-modal-close" onclick="cerrarBuscador()">✕</button>
+    </div>
+    <div class="search-input-wrap">
+      <input type="text" class="search-input" id="searchInput" placeholder="Buscar por nombre, descripción o categoría..." autocomplete="off">
+    </div>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+</div>
+
+<!-- =======================================================================
+     CARRITO LATERAL - CARRITO FUNCIONAL
+======================================================================= -->
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer-header">
+    <h2>Carrito</h2>
+    <button class="cart-drawer-close" onclick="cerrarCarrito()">✕</button>
+  </div>
+  <div class="cart-drawer-body" id="cartItems"></div>
+  <div class="cart-drawer-footer">
+    <div class="cart-subtotal">
+      <span>Subtotal:</span>
+      <span class="cart-subtotal-price" id="cartTotal">Bs 0</span>
+    </div>
+    <!-- ========================================================= -->
+    <!-- https://wa.me/59176623042?text=Hola%20Boutique%20Seul%20🎀%20Quisiera%20información%20sobre%20sus%20productos -->
+    <!-- https://wa.me/59176623042?text=Hola%20Boutique%20Seul%20🎀%20Quisiera%20información%20sobre%20sus%20productos -->
+    <!-- ========================================================= -->
+    <button class="cart-checkout" onclick="procederAPago()">Ir a Pagar</button>
+  </div>
+</div>
+
+<!-- =======================================================================
+     HERO / SLIDER PRINCIPAL
+======================================================================= -->
+<section class="hero" id="hero">
+  <div class="hero-slide active" id="slide-0">
+    <div class="hero-bg hero-bg-1"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Nueva Colección</div>
+      <h1 class="hero-title">Estilo<br><em>Coquette</em></h1>
+      <p class="hero-body">Moda coreana, japonesa, vintage, Y2K y gótica. Piezas únicas seleccionadas especialmente para ti.</p>
+      <div class="hero-actions">
+        <a href="#nuevo" class="btn-filled" onclick="verTodo()">Comprar Ahora</a>
+        <a href="#colecciones" class="btn-outline">Ver Colecciones</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-slide" id="slide-1">
+    <div class="hero-bg hero-bg-2"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Importación Exclusiva</div>
+      <h1 class="hero-title">Tendencia<br><em>Asiática</em></h1>
+      <p class="hero-body">Ropa, accesorios, maquillaje y skincare importados directamente para nuestra comunidad.</p>
+      <div class="hero-actions">
+        <a href="#bestsellers" class="btn-filled" onclick="filtrarPorSeccion('bestsellers')">Más Vendidos</a>
+        <a href="#tienda" class="btn-outline" onclick="verTodo()">Ver Todo</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-dots">
+    <button class="dot active" onclick="goSlide(0,event)"></button>
+    <button class="dot" onclick="goSlide(1,event)"></button>
+  </div>
+</section>
+
+<!-- =======================================================================
+     SECCIÓN: NUEVOS INGRESOS
+     
+     CÓMO EDITAR PRODUCTOS:
+     - IMAGEN DEL PRODUCTO: cambiar el div .prod-placeholder por <img src="...">
+     - NOMBRE DEL PRODUCTO: editar el texto en <div class="prod-name">
+     - PRECIO DEL PRODUCTO: editar el número en <span class="price-ahora">
+     - DESCRIPCIÓN: editar el texto en <div class="prod-desc">
+     - COLECCIÓN: cambiar data-coleccion="coreano" por: coreano, japones, vintage, y2k, gotico
+     - CATEGORÍA: cambiar data-categoria="ropa" por: ropa, mochilas, accesorios, maquillaje, skincare
+     
+     PARA AGREGAR LINK DE COMPRA:
+     Busca el comentario <!-- LINK COMPRA --> en cada producto
+======================================================================= -->
+<div style="background:var(--blanco)">
+  <div class="sec" id="nuevo">
+    <div class="sec-header">
+      <div class="eyebrow">Recién Llegado</div>
+      <div class="deco-rule"><span>✦</span></div>
+      <h2 class="sec-title">Nuevos <em>Ingresos</em></h2>
+      <p class="sec-sub">Piezas exclusivas seleccionadas para ti</p>
+    </div>
+
+    <div class="prod-grid" id="prodGrid">
+
+      <!-- ========================= -->
+      <!-- PRODUCTO 1 -->
+      <!-- ========================= -->
+      <div class="prod-card" data-id="1" data-nombre="STARBANG" data-precio="290" data-desc="mochila amplia" data-coleccion="coreano" data-categoria="mochilas y carteras">
+        <div class="prod-img-wrap">
+          <!-- EDITAR AQUÍ: cambiar prod-placeholder por <img src="https://img.ltwebstatic.com/images3_spmp/2024/01/07/10/1704608109c173f86a586feb80aa84fe797dd6bc10_thumbnail_750x999.jpg"> -->
+         <div class="prod-img-wrap">
+  <img src="https://img.ltwebstatic.com/images3_spmp/2024/01/07/10/1704608109c173f86a586feb80aa84fe797dd6bc10_thumbnail_750x999.jpg" alt="STARBANG MOCHILA">
+
+  <span class="prod-badge badge-nuevo">Nuevo</span>
+
+  <button class="prod-quick" onclick="agregarAlCarrito(1,'STARBANG MOCHILA',290)">
+    Agregar al Carrito
+  </button>
+</div>
+          <span class="prod-badge badge-nuevo">Nuevo</span>
+          <!-- ========================================================= -->
+          <!-- https://wa.me/p/33950738271208789/30778255769701 -->
+          <!-- https://wa.me/p/33950738271208789/30778255769701 -->
+          <!-- EJEMPLO: onclick="abrirCompra('https://tu-tienda.com/producto1')" -->
+          <!-- ========================================================= -->
+          <button class="prod-quick" onclick="agregarAlCarrito(1,'STARBANG MOCHILA',290)">Agregar al Carrito</button>
+        </div>
+        <div class="prod-name">STARBANG MOCHILA</div>
+        <div class="prod-desc">mochila coreana estilo morral,mas un llavero de regalo, perfecto para llevar a la universidad, colegio o usarlo al día, colores disponibles negro, rosa, verde y blanco.</div>
+        <div class="prod-prices"><span class="price-ahora">Bs 290</span></div>
+      </div>
+
+      <!-- ========================= -->
+      <!-- PRODUCTO 2 -->
+      <!-- ========================= -->
+      <div class="prod-card" data-id="2" data-nombre="Protector Solar Coreano Purito Wonder Releaf" data-precio="260" data-desc="Cuida tu piel con uno de los protectores solares coreanos más virales y recomendados ✨" data-coleccion="coreano" data-categoria="skincare">
+        <div class="prod-img-wrap">
+  <img src="https://kbox.mx/cdn/shop/files/purito-seoul-wonder-releaf-centella-daily-sun-lotion-1149203.webp?v=1752336080&width=1445" alt="Protector Solar Coreano Purito Wonder Releaf">
+          <span class="prod-badge badge-nuevo">Nuevo</span>
+          <!-- ========================================================= -->
+          <!-- https://wa.me/p/26996465716684005/30778255769701 -->
+          <!-- REEMPLAZAR ESTE ENLACE POR EL LINK REAL -->
+          <!-- ========================================================= -->
+          <button class="prod-quick" onclick="agregarAlCarrito(2,'Protector Solar Coreano Purito',260)">Agregar al Carrito</button>
+        </div>
+        <div class="prod-name">Protector Solar Coreano Purito Wonder Releaf</div>
+        <div class="prod-desc">El Purito Wonder Releaf Centella Daily Sun Lotion protege tu rostro de los rayos UV mientras hidrata y calma la piel gracias a la centella asiática 🌿
+Su textura ligera tipo loción no deja sensación grasosa ni efecto blanco, ideal para usar todos los días debajo del maquillaje 💄☀️.</div>
+        <div class="prod-prices"><span class="price-ahora">Bs 260</span></div>
+      </div>
+
+      <!-- ========================= -->
+      <!-- PRODUCTO 3 -->
+      <!-- ========================= -->
+      <div class="prod-card" data-id="3" data-nombre="Collares Góticos" data-precio="50" data-desc="Collar de cadena fina con dijes de estética gótica." data-coleccion="gotico" data-categoria="accesorios">
+        <div class="prod-img-wrap">
+   <img src="https://img.ltwebstatic.com/v4/j/spmp/2025/12/12/5f/17655074142fbe7da7796deab91089d2bae91504ad_thumbnail_750x999.webp" alt="Collares goticos">
+          <!-- ========================================================= -->
+          <!-- PEGAR AQUÍ EL LINK DE COMPRA DEL PRODUCTO 3 -->
+          <!-- REEMPLAZAR ESTE ENLACE POR EL LINK REAL -->
+          <!-- ========================================================= -->
+          <button class="prod-quick" onclick="agregarAlCarrito(3,'Collares Góticos',50)">Agregar al Carrito</button>
+        </div>
+        <div class="prod-name">Collares Góticos</div>
+        <div class="prod-desc">Collar de cadena fina con dijes de estética gótica suave.</div>
+        <div class="prod-prices"><span class="price-ahora">Bs 50</span></div>
+      </div>
+
+      <!-- ========================= -->
+      <!-- PRODUCTO 4 -->
+      <!-- ========================= -->
+      <div class="prod-card" data-id="4" data-nombre="Paleta de Sombras Julydoll contorno" data-precio="250" data-desc="Paleta de 4 tonos, acabado satinado, larga duración." data-coleccion="coreano" data-categoria="maquillaje">
+        <div class="prod-img-wrap">
+      <img src="https://down-mx.img.susercontent.com/file/cn-11134207-7r98o-lzw3gm6nocde86" alt="Maquillaje">
+          <!-- ========================================================= -->
+          <!-- PEGAR AQUÍ EL LINK DE COMPRA DEL PRODUCTO 4 -->
+          <!-- REEMPLAZAR ESTE ENLACE POR EL LINK REAL -->
+          <!-- ========================================================= -->
+          <button class="prod-quick" onclick="agregarAlCarrito(4,'Paleta de Contornos Julydoll',250)">Agregar al Carrito</button>
+        </div>
+        <div class="prod-name">Paleta de Contornos Julydoll</div>
+        <div class="prod-desc">Realza tu belleza con esta increíble paleta de contorno Julydoll #01 💄🤎, perfecta para definir y darle dimensión a tu rostro de manera natural y elegante.
+💖Incluye varios tonos cuidadosamente seleccionados para: Contornear (dar profundidad y definición).</div>
+        <div class="prod-prices"><span class="price-ahora">Bs 250</span></div>
+      </div>
+
+    </div>
+    <div class="sec-cta-wrap"><a href="#tienda" class="ver-todo" onclick="verTodo()">Ver Toda la Colección →</a></div>
+  </div>
+</div>
+
+<!-- =======================================================================
+     SECCIÓN: MÁS VENDIDOS
+======================================================================= -->
+<div style="background:var(--rosa-bebe)" id="bestsellers">
+  <div class="sec">
+    <div class="sec-header">
+      <div class="eyebrow">Favoritas de Clientas</div>
+      <div class="deco-rule"><span>✦</span></div>
+      <h2 class="sec-title">Más <em>Vendidos</em></h2>
+    </div>
+
+    <div class="prod-grid">
+
+      <!-- ========================= -->
+      <!-- PRODUCTO 5 -->
+      <!-- ========================= -->
+      <div class="prod-card" data-id="5" data-nombre="Falda Vintage Plisada" data-precio="140" data-desc="Falda midi plisada de cintura alta, inspiración retro japonesa." data-coleccion="vintage" data-categoria="ropa">
+        <div class="prod-img-wrap">
+          <div class="prod-placeholder">Imagen<br>Producto 5</div>
+          <span class="prod-badge badge-oferta">Oferta</span>
+          <!-- ========================================================= -->
+          <!-- PEGAR AQUÍ EL LINK DE COMPRA DEL PRODUCTO 5 -->
+          <!-- REEMPLAZAR ESTE ENLACE POR EL LINK REAL -->
+          <!-- ========================================================= -->
+          <button class="prod-quick" onclick="agregarAlCarrito(5,'Falda Vintage Plisada',140)">Agregar al Carrito</button>
+        </div>
+        <div class="prod-name">Falda Vintage Plisada</div>
+        <div class="prod-desc">Falda midi plisada de cintura alta, inspiración retro japonesa.</div>
+        <div class="prod-prices">
+          <span class="price-ahora">Bs 140</span>
+          <span class="price-antes">Bs 190</span>
+        </div>
+      </div>
+
+      <!-- ========================= -->
+      <!-- PRODUCTO 6 -->
+      <!-- ========================= -->
+      <div class="prod-card" data-id="6" data-nombre="Cartera Mini Lazo Satinado" data-precio="165" data-desc="Cartera pequeña con asa de cadena y lazo satinado removible." data-coleccion="coreano" data-categoria="mochilas">
+        <div class="prod-img-wrap">
+          <div class="prod-placeholder">Imagen<br>Producto 6</div>
+          <!-- ========================================================= -->
+          <!-- PEGAR AQUÍ EL LINK DE COMPRA DEL PRODUCTO 6 -->
+          <!-- REEMPLAZAR ESTE ENLACE POR EL LINK REAL -->
+          <!-- ========================================================= -->
+          <button class="prod-quick" onclick="agregarAlCarrito(6,'Cartera Mini Lazo Satinado',165)">Agregar al Carrito</button>
+        </div>
+        <div class="prod-name">Cartera Mini Lazo Satinado</div>
+        <div class="prod-desc">Cartera pequeña con asa de cadena y lazo satinado removible.</div>
+        <div class="prod-prices"><span class="price-ahora">Bs 165</span></div>
+      </div>
+
+      <!-- ========================= -->
+      <!-- PRODUCTO 7 -->
+      <!-- ========================= -->
+      <div class="prod-card" data-id="7" data-nombre="Serum Hidratante Coreano" data-precio="110" data-desc="Serum ligero con ácido hialurónico, rutina K-beauty esencial." data-coleccion="coreano" data-categoria="skincare">
+        <div class="prod-img-wrap">
+          <div class="prod-placeholder">Imagen<br>Producto 7</div>
+          <!-- ========================================================= -->
+          <!-- PEGAR AQUÍ EL LINK DE COMPRA DEL PRODUCTO 7 -->
+          <!-- REEMPLAZAR ESTE ENLACE POR EL LINK REAL -->
+          <!-- ========================================================= -->
+          <button class="prod-quick" onclick="agregarAlCarrito(7,'Serum Hidratante Coreano',110)">Agregar al Carrito</button>
+        </div>
+        <div class="prod-name">Serum Hidratante Coreano</div>
+        <div class="prod-desc">Serum ligero con ácido hialurónico, rutina K-beauty esencial.</div>
+        <div class="prod-prices"><span class="price-ahora">Bs 110</span></div>
+      </div>
+
+      <!-- ========================= -->
+      <!-- PRODUCTO 8 -->
+      <!-- ========================= -->
+      <div class="prod-card" data-id="8" data-nombre="Choker Encaje Negro" data-precio="60" data-desc="Choker de encaje con dije central, estilo gótico elegante." data-coleccion="gotico" data-categoria="accesorios">
+        <div class="prod-img-wrap">
+          <div class="prod-placeholder">Imagen<br>Producto 8</div>
+          <span class="prod-badge badge-oferta">Oferta</span>
+          <!-- ========================================================= -->
+          <!-- PEGAR AQUÍ EL LINK DE COMPRA DEL PRODUCTO 8 -->
+          <!-- REEMPLAZAR ESTE ENLACE POR EL LINK REAL -->
+          <!-- ========================================================= -->
+          <button class="prod-quick" onclick="agregarAlCarrito(8,'Choker Encaje Negro',60)">Agregar al Carrito</button>
+        </div>
+        <div class="prod-name">Choker Encaje Negro</div>
+        <div class="prod-desc">Choker de encaje con dije central, estilo gótico elegante.</div>
+        <div class="prod-prices">
+          <span class="price-ahora">Bs 60</span>
+          <span class="price-antes">Bs 85</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- =======================================================================
+     SECCIÓN: TIENDA COMPLETA (Ver Todo)
+     Aquí se muestran TODOS los productos cuando se activa el filtro
+======================================================================= -->
+<div style="background:var(--blanco)" id="tienda">
+  <div class="sec">
+    <div class="sec-header">
+      <div class="eyebrow">Catálogo Completo</div>
+      <div class="deco-rule"><span>✦</span></div>
+      <h2 class="sec-title">Ver <em>Todo</em></h2>
+      <p class="sec-sub">Todos nuestros productos disponibles</p>
+    </div>
+
+    <!-- FILTRO DE COLECCIONES -->
+    <div class="colecciones-filter" id="coleccionesFilter" style="display:none">
+      <button class="filter-btn" onclick="verTodo()">Todos</button>
+      <button class="filter-btn" onclick="filtrarPorColeccion('coreano')">Coreano</button>
+      <button class="filter-btn" onclick="filtrarPorColeccion('japones')">Japonés</button>
+      <button class="filter-btn" onclick="filtrarPorColeccion('vintage')">Vintage</button>
+      <button class="filter-btn" onclick="filtrarPorColeccion('y2k')">Y2K</button>
+      <button class="filter-btn" onclick="filtrarPorColeccion('gotico')">Gótico</button>
+    </div>
+
+    <div class="prod-grid" id="allProdGrid">
+
+      <!-- ========================= -->
+      <!-- PRODUCTO 9 - ESPACIO VACÍO PARA EDITAR -->
+      <!-- ========================= -->
+      <div class="prod-card" data-id="9" data-nombre="[EDITAR NOMBRE]" data-precio="0" data-desc="[EDITAR DESCRIPCIÓN]" data-coleccion="coreano" data-categoria="ropa">
+        <div class="prod-img-wrap">
+          <div class="prod-placeholder">Imagen<br>Producto 9</div>
+          <!-- ========================================================= -->
+          <!-- PEGAR AQUÍ EL LINK DE COMPRA DEL PRODUCTO 9 -->
+          <!-- REEMPLAZAR ESTE ENLACE POR EL LINK REAL -->
+          <!-- ========================================================= -->
+          <button class="prod-quick" onclick="agregarAlCarrito(9,'[EDITAR NOMBRE]',0)">Agregar al Carrito</button>
+        </div>
+        <div class="prod-name">[EDITAR NOMBRE DEL PRODUCTO]</div>
+        <div class="prod-desc">[EDITAR DESCRIPCIÓN DEL PRODUCTO]</div>
+        <div class="prod-prices"><span class="price-ahora">Bs [PRECIO]</span></div>
+      </div>
+
+      <!-- ========================= -->
+      <!-- PRODUCTO 10 - ESPACIO VACÍO PARA EDITAR -->
+      <!-- ========================= -->
+      <div class="prod-card" data-id="10" data-nombre="[EDITAR NOMBRE]" data-precio="0" data-desc="[EDITAR DESCRIPCIÓN]" data-coleccion="japones" data-categoria="ropa">
+        <div class="prod-img-wrap">
+          <div class="prod-placeholder">Imagen<br>Producto 10</div>
+          <!-- ========================================================= -->
+          <!-- PEGAR AQUÍ EL LINK DE COMPRA DEL PRODUCTO 10 -->
+          <!-- REEMPLAZAR ESTE ENLACE POR EL LINK REAL -->
+          <!-- ========================================================= -->
+          <button class="prod-quick" onclick="agregarAlCarrito(10,'[EDITAR NOMBRE]',0)">Agregar al Carrito</button>
+        </div>
+        <div class="prod-name">[EDITAR NOMBRE DEL PRODUCTO]</div>
+        <div class="prod-desc">[EDITAR DESCRIPCIÓN DEL PRODUCTO]</div>
+        <div class="prod-prices"><span class="price-ahora">Bs [PRECIO]</span></div>
+      </div>
+
+      <!-- ========================= -->
+      <!-- PRODUCTO 11 - ESPACIO VACÍO PARA EDITAR -->
+      <!-- ========================= -->
+      <div class="prod-card" data-id="11" data-nombre="[EDITAR NOMBRE]" data-precio="0" data-desc="[EDITAR DESCRIPCIÓN]" data-coleccion="vintage" data-categoria="accesorios">
+        <div class="prod-img-wrap">
+          <div class="prod-placeholder">Imagen<br>Producto 11</div>
+          <!-- ========================================================= -->
+          <!-- PEGAR AQUÍ EL LINK DE COMPRA DEL PRODUCTO 11 -->
+          <!-- REEMPLAZAR ESTE ENLACE POR EL LINK REAL -->
+          <!-- ========================================================= -->
+          <button class="prod-quick" onclick="agregarAlCarrito(11,'[EDITAR NOMBRE]',0)">Agregar al Carrito</button>
+        </div>
+        <div class="prod-name">[EDITAR NOMBRE DEL PRODUCTO]</div>
+        <div class="prod-desc">[EDITAR DESCRIPCIÓN DEL PRODUCTO]</div>
+        <div class="prod-prices"><span class="price-ahora">Bs [PRECIO]</span></div>
+      </div>
+
+      <!-- ========================= -->
+      <!-- PRODUCTO 12 - ESPACIO VACÍO PARA EDITAR -->
+      <!-- ========================= -->
+      <div class="prod-card" data-id="12" data-nombre="[EDITAR NOMBRE]" data-precio="0" data-desc="[EDITAR DESCRIPCIÓN]" data-coleccion="y2k" data-categoria="maquillaje">
+        <div class="prod-img-wrap">
+          <div class="prod-placeholder">Imagen<br>Producto 12</div>
+          <!-- ========================================================= -->
+          <!-- PEGAR AQUÍ EL LINK DE COMPRA DEL PRODUCTO 12 -->
+          <!-- REEMPLAZAR ESTE ENLACE POR EL LINK REAL -->
+          <!-- ========================================================= -->
+          <button class="prod-quick" onclick="agregarAlCarrito(12,'[EDITAR NOMBRE]',0)">Agregar al Carrito</button>
+        </div>
+        <div class="prod-name">[EDITAR NOMBRE DEL PRODUCTO]</div>
+        <div class="prod-desc">[EDITAR DESCRIPCIÓN DEL PRODUCTO]</div>
+        <div class="prod-prices"><span class="price-ahora">Bs [PRECIO]</span></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- =======================================================================
+     SECCIÓN: SOBRE NOSOTRAS
+======================================================================= -->
+<div class="sobre-sec" id="sobre">
+  <div class="sobre-inner">
+    <h2 class="sec-title">Sobre <em>Nosotras</em></h2>
+    <p>Boutique Seul nace de la pasión por la moda asiática y las tendencias más buscadas. Seleccionamos cuidadosamente cada pieza para que encuentres tu estilo único. Moda coreana, japonesa, vintage, Y2K y gótica: todo en un solo lugar. ✦</p>
+  </div>
+</div>
+
+<!-- =======================================================================
+     SECCIÓN: SERVICIO AL CLIENTE
+======================================================================= -->
+<div class="servicio-sec" id="servicio">
+  <div class="servicio-inner">
+    <div class="sec-header">
+      <div class="eyebrow">Atención al Cliente</div>
+      <div class="deco-rule"><span>✦</span></div>
+      <h2 class="sec-title">¿Cómo <em>Podemos</em> Ayudarte?</h2>
+    </div>
+    <div class="servicio-grid">
+      <a href="#" class="servicio-card">
+        <div class="servicio-ico">📦</div>
+        <h4>Envío a Todo Bolivia</h4>
+        <p>Entrega en La Paz y departamentos</p>
+      </a>
+      <a href="#" class="servicio-card">
+        <div class="servicio-ico">💳</div>
+        <h4>Pago Seguro</h4>
+        <p>Múltiples opciones de pago</p>
+      </a>
+      <a href="#" class="servicio-card">
+        <div class="servicio-ico">↩️</div>
+        <h4>Políticas de Reembolso</h4>
+        <p>Cambios y devoluciones</p>
+      </a>
+      <a href="#" class="servicio-card">
+        <div class="servicio-ico">📋</div>
+        <h4>Términos y Condiciones</h4>
+        <p>Información legal de la tienda</p>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- =======================================================================
+     SECCIÓN: REDES SOCIALES
+     EDITAR AQUÍ: cambiar los # por los links reales de tus redes
+======================================================================= -->
+<div class="redes-sec">
+  <div class="redes-inner">
+    <h2 class="sec-title">Síguenos en <em>Redes</em></h2>
+    <p>Entérate primero de nuevos ingresos y promociones</p>
+    <div class="redes-iconos">
+      <!-- ========================================================= -->
+      <!-- REEMPLAZA LOS # POR TUS LINKS REALES DE REDES SOCIALES -->
+      <!-- ========================================================= -->
+      <a href="https://www.tiktok.com/@boutiqseul_lpbol?is_from_webapp=1&sender_device=pc" target="_blank" class="red-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.5.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.1-3.72 2.53-4.96 1.61-1.42 3.84-2.07 5.95-1.78v3.95c-.9-.29-1.95-.21-2.74.31-.59.36-1.02.92-1.25 1.55-.21.5-.15 1.06-.16 1.6.18 1.21 1.32 2.23 2.55 2.13 1.09-.08 2-.83 2.46-1.83.13-.39.19-.81.18-1.21V.02z"/></svg>
+        TikTok
+      </a>
+      <a href="https://www.instagram.com/boutiqseul_lpbol?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="red-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.24 2.23.41.56.21.96.46 1.38.88.42.42.67.82.88 1.38.17.43.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.24 1.8-.41 2.23-.21.56-.46.96-.88 1.38-.42.42-.82.67-1.38.88-.43.17-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.24-2.23-.41-.56-.21-.96-.46-1.38-.88-.42-.42-.67-.82-.88-1.38-.17-.43-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.24-1.8.41-2.23.21-.56.46-.96.88-1.38.42-.42.82-.67 1.38-.88.43-.17 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07c-1.28.06-2.15.26-2.91.56-.79.31-1.46.72-2.13 1.39-.67.67-1.08 1.34-1.39 2.13-.3.76-.5 1.63-.56 2.91C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.28.26 2.15.56 2.91.31.79.72 1.46 1.39 2.13.67.67 1.34 1.08 2.13 1.39.76.3 1.63.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.28-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.39.67-.67 1.08-1.34 1.39-2.13.3-.76.5-1.63.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.39-2.13-.67-.67-1.34-1.08-2.13-1.39-.76-.3-1.63-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4zm6.4-10.84a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44z"/></svg>
+        Instagram
+      </a>
+      <a href="https://www.facebook.com/share/1GiD9bquyZ/" target="_blank" class="red-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.1 8.1H6.6v2.2h2.3v9.6H6V18h9.5v1.9h-2.7v-9.6h2.3v-2.2h-2.3V7c0-1 .4-1.4 1.4-1.4h1.6V3.2c-.5-.1-1.6-.2-2.6-.2-2.7 0-4.1 1.6-4.1 4.5z"/></svg>
+        Facebook
+      </a>
+      <a href="https://wa.me/59176623042?text=Hola%20Boutique%20Seul%20🎀%20Quisiera%20información%20sobre%20sus%20productos" target="_blank" class="red-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.8-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1-.2.2-.3.2-.6.1-2-.8-3.5-2-4.6-3.9-.1-.2 0-.3.1-.5l.5-.6c.1-.2.1-.4.1-.5-.1-.1-.5-1.2-.7-1.7-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.4 0 1.5 1 2.8 1.2 3 .1.2 2 3.1 5 4.3 2.4 1 2.9.8 3.4.7.5-.1 1.6-.6 1.8-1.2.2-.6.2-1.1.2-1.2-.1-.1-.2-.1-.4-.2zM12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- =======================================================================
+     FOOTER
+======================================================================= -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="#"><span class="logo-rosa">Boutique</span> Seul</a>
+        <p>Moda coreana, japonesa, vintage, Y2K y gótica. Piezas únicas seleccionadas para ti.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Tienda</h4>
+        <ul>
+          <li><a onclick="filtrarPorSeccion('nuevo')">Nuevo</a></li>
+          <li><a href="#colecciones">Colecciones</a></li>
+          <li><a onclick="filtrarPorSeccion('bestsellers')">Más Vendidos</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Ayuda</h4>
+        <ul>
+          <li><a href="#servicio">Atención al Cliente</a></li>
+          <li><a href="#">Políticas de Envío</a></li>
+          <li><a href="#">Políticas de Reembolso</a></li>
+          <li><a href="#">Términos y Condiciones</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025, Boutique Seul. Todos los derechos reservados.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =======================================================================
+   JAVASCRIPT - FUNCIONALIDADES PRINCIPALES
+   Organizado en secciones claras para fácil edición
+======================================================================= */
+
+/* ═══════════════════════════════════════════════════════════════════
+   SECCIÓN 1: DATOS DE PRODUCTOS
+   ═══════════════════════════════════════════════════════════════════ */
+
+const productosData = {
+  1: {id:1, nombre:"Vestido Coquette Lazo Rosa", precio:250, desc:"Vestido vaporoso con detalle de lazo, estilo coreano romántico.", coleccion:"coreano", categoria:"ropa"},
+  2: {id:2, nombre:"Mochila Y2K Mariposa", precio:180, desc:"Mochila estilo Y2K con bordado de mariposas y detalles metálicos.", coleccion:"y2k", categoria:"mochilas"},
+  3: {id:3, nombre:"Collar Gótico Cruz de Perlas", precio:95, desc:"Collar de cadena fina con dije de cruz y perlas, estética gótica suave.", coleccion:"gotico", categoria:"accesorios"},
+  4: {id:4, nombre:"Paleta de Sombras Tonos Rosa", precio:120, desc:"Paleta de 6 tonos pastel, acabado satinado, larga duración.", coleccion:"coreano", categoria:"maquillaje"},
+  5: {id:5, nombre:"Falda Vintage Plisada", precio:140, desc:"Falda midi plisada de cintura alta, inspiración retro japonesa.", coleccion:"vintage", categoria:"ropa"},
+  6: {id:6, nombre:"Cartera Mini Lazo Satinado", precio:165, desc:"Cartera pequeña con asa de cadena y lazo satinado removible.", coleccion:"coreano", categoria:"mochilas"},
+  7: {id:7, nombre:"Serum Hidratante Coreano", precio:110, desc:"Serum ligero con ácido hialurónico, rutina K-beauty esencial.", coleccion:"coreano", categoria:"skincare"},
+  8: {id:8, nombre:"Choker Encaje Negro", precio:60, desc:"Choker de encaje con dije central, estilo gótico elegante.", coleccion:"gotico", categoria:"accesorios"},
+};
+
+/* ═══════════════════════════════════════════════════════════════════
+   SECCIÓN 2: CARRITO DE COMPRAS
+   ═══════════════════════════════════════════════════════════════════ */
+
+let carrito = [];
+
+function agregarAlCarrito(id, nombre, precio) {
+  const itemExistente = carrito.find(item => item.id === id);
+  if (itemExistente) {
+    itemExistente.cantidad++;
+  } else {
+    carrito.push({id, nombre, precio, cantidad: 1});
+  }
+  actualizarCarrito();
+  abrirCarrito();
+}
+
+function eliminarDelCarrito(id) {
+  carrito = carrito.filter(item => item.id !== id);
+  actualizarCarrito();
+}
+
+function cambiarCantidad(id, cantidad) {
+  const item = carrito.find(item => item.id === id);
+  if (item) {
+    item.cantidad = Math.max(1, cantidad);
+    actualizarCarrito();
+  }
+}
+
+function actualizarCarrito() {
+  const cartItems = document.getElementById('cartItems');
+  const cartBadge = document.getElementById('cartCount');
+  const cartTotal = document.getElementById('cartTotal');
+  
+  let total = 0;
+  let cantidadTotal = 0;
+  let html = '';
+
+  if (carrito.length === 0) {
+    html = '<div class="cart-empty">Tu carrito está vacío</div>';
+    cartBadge.textContent = '0';
+  } else {
+    carrito.forEach(item => {
+      const subtotal = item.precio * item.cantidad;
+      total += subtotal;
+      cantidadTotal += item.cantidad;
+      html += `
+        <div class="cart-item">
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.nombre}</div>
+            <div class="cart-item-price">Bs ${item.precio}</div>
+            <div class="cart-item-qty">
+              <button onclick="cambiarCantidad(${item.id}, ${item.cantidad - 1})">−</button>
+              <span>${item.cantidad}</span>
+              <button onclick="cambiarCantidad(${item.id}, ${item.cantidad + 1})">+</button>
+            </div>
+            <div class="cart-item-remove" onclick="eliminarDelCarrito(${item.id})">Eliminar</div>
+          </div>
+        </div>
+      `;
+    });
+    cartBadge.textContent = cantidadTotal;
+  }
+
+  cartItems.innerHTML = html;
+  cartTotal.textContent = `Bs ${total}`;
+}
+
+function abrirCarrito() {
+  document.getElementById('cartDrawer').classList.add('active');
+}
+
+function cerrarCarrito() {
+  document.getElementById('cartDrawer').classList.remove('active');
+}
+
+function procederAPago() {
+  if (carrito.length === 0) {
+    alert('Tu carrito está vacío');
+    return;
+  }
+  // ========================================================= 
+  // AQUÍ VA EL LINK DE PAGO/CHECKOUT REAL
+  // Reemplaza "#" por el link de tu plataforma de pago
+  // Ejemplos:
+  // - Mercado Pago: https://www.mercadopago.com.bo
+  // - PayPal: https://www.paypal.com
+  // - Stripe: https://dashboard.stripe.com
+  // =========================================================
+  alert('Redirigiendo a pago... (Configurar link real en el código)');
+  // window.location.href = "TU_LINK_DE_PAGO_AQUI";
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SECCIÓN 3: BUSCADOR
+   ═══════════════════════════════════════════════════════════════════ */
+
+const searchIcon = document.getElementById('searchIcon');
+const searchModal = document.getElementById('searchModal');
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+
+searchIcon.addEventListener('click', function() {
+  searchModal.classList.add('active');
+  searchInput.focus();
+});
+
+searchInput.addEventListener('input', function() {
+  const query = this.value.toLowerCase().trim();
+  
+  if (query.length === 0) {
+    searchResults.innerHTML = '';
+    return;
+  }
+
+  let resultados = [];
+  for (let id in productosData) {
+    const prod = productosData[id];
+    if (prod.nombre.toLowerCase().includes(query) || 
+        prod.desc.toLowerCase().includes(query) || 
+        prod.coleccion.toLowerCase().includes(query) ||
+        prod.categoria.toLowerCase().includes(query)) {
+      resultados.push(prod);
+    }
+  }
+
+  if (resultados.length === 0) {
+    searchResults.innerHTML = '<div class="search-no-results">No se encontraron productos.</div>';
+  } else {
+    let html = '';
+    resultados.forEach(prod => {
+      html += `
+        <div class="search-result-item" onclick="agregarAlCarrito(${prod.id},'${prod.nombre}',${prod.precio})">
+          <div class="search-result-name">${prod.nombre}</div>
+          <div class="search-result-desc">${prod.desc}</div>
+          <div class="search-result-price">Bs ${prod.precio}</div>
+        </div>
+      `;
+    });
+    searchResults.innerHTML = html;
+  }
+});
+
+function cerrarBuscador() {
+  searchModal.classList.remove('active');
+}
+
+searchModal.addEventListener('click', function(e) {
+  if (e.target === searchModal) {
+    cerrarBuscador();
+  }
+});
+
+/* ═══════════════════════════════════════════════════════════════════
+   SECCIÓN 4: FILTROS Y COLECCIONES
+   ═══════════════════════════════════════════════════════════════════ */
+
+function filtrarPorColeccion(coleccion) {
+  const productoCards = document.querySelectorAll('.prod-card');
+  document.getElementById('coleccionesFilter').style.display = 'flex';
+  
+  productoCards.forEach(card => {
+    const cardColeccion = card.getAttribute('data-coleccion');
+    if (cardColeccion === coleccion) {
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+
+  actualizarFiltros(coleccion);
+}
+
+function filtrarPorCategoria(categoria) {
+  const productoCards = document.querySelectorAll('.prod-card');
+  
+  productoCards.forEach(card => {
+    const cardCategoria = card.getAttribute('data-categoria');
+    if (cardCategoria === categoria) {
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+}
+
+function filtrarPorSeccion(seccion) {
+  const productoCards = document.querySelectorAll('.prod-card');
+  document.getElementById('coleccionesFilter').style.display = 'none';
+  productoCards.forEach(card => card.classList.remove('hidden'));
+  
+  if (seccion === 'nuevo') {
+    const gridAntiguo = document.getElementById('allProdGrid');
+    if (gridAntiguo) gridAntiguo.style.display = 'none';
+  } else if (seccion === 'bestsellers') {
+    const gridAntiguo = document.getElementById('allProdGrid');
+    if (gridAntiguo) gridAntiguo.style.display = 'none';
+  }
+}
+
+function verTodo() {
+  const productoCards = document.querySelectorAll('.prod-card');
+  productoCards.forEach(card => card.classList.remove('hidden'));
+  document.getElementById('coleccionesFilter').style.display = 'flex';
+  actualizarFiltros('todos');
+}
+
+function actualizarFiltros(activo) {
+  const botones = document.querySelectorAll('.filter-btn');
+  botones.forEach(btn => {
+    btn.classList.remove('active');
+    if ((activo === 'todos' && btn.textContent === 'Todos') ||
+        (btn.textContent.toLowerCase().includes(activo))) {
+      btn.classList.add('active');
+    }
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SECCIÓN 5: SLIDER DEL HERO
+   ═══════════════════════════════════════════════════════════════════ */
+
+let actual = 0;
+const slides = document.querySelectorAll('.hero-slide');
+const dots = document.querySelectorAll('.dot');
+let temporizador;
+
+function mostrarSlide(n) {
+  if (slides.length === 0) return;
+  slides[actual].classList.remove('active');
+  dots[actual].classList.remove('active');
+  actual = (n + slides.length) % slides.length;
+  slides[actual].classList.add('active');
+  dots[actual].classList.add('active');
+}
+
+function siguienteSlide() { mostrarSlide(actual + 1); }
+
+function goSlide(n, e) {
+  e.stopPropagation();
+  clearInterval(temporizador);
+  mostrarSlide(n);
+  temporizador = setInterval(siguienteSlide, 5500);
+}
+
+const heroElement = document.getElementById('hero');
+if (heroElement) {
+  heroElement.addEventListener('click', function() {
+    clearInterval(temporizador);
+    siguienteSlide();
+    temporizador = setInterval(siguienteSlide, 5500);
+  });
+  temporizador = setInterval(siguienteSlide, 5500);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SECCIÓN 6: BOTÓN VOLVER ARRIBA
+   ═══════════════════════════════════════════════════════════════════ */
+
+const botonSubir = document.getElementById('scrollTop');
+window.addEventListener('scroll', function() {
+  botonSubir.classList.toggle('visible', window.scrollY > 400);
+});
+
+/* ═══════════════════════════════════════════════════════════════════
+   SECCIÓN 7: EVENTOS DEL CARRITO
+   ═══════════════════════════════════════════════════════════════════ */
+
+document.getElementById('cartIcon').addEventListener('click', abrirCarrito);
+
+// Cerrar carrito al hacer click fuera
+document.addEventListener('click', function(e) {
+  const cartDrawer = document.getElementById('cartDrawer');
+  const cartIcon = document.getElementById('cartIcon');
+  if (!cartDrawer.contains(e.target) && !cartIcon.contains(e.target)) {
+    if (cartDrawer.classList.contains('active') && e.target.closest('.cart-drawer-body') === null) {
+      // No cerrar si se hace click dentro del carrito
+    }
+  }
+});
+
+// Inicializar
+actualizarCarrito();
+</script>
+</body>
+</html>
